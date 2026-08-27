@@ -28,6 +28,8 @@ npm run dev
 
 本项目已提供 `vercel.json`。在 Vercel 中导入此 GitHub 仓库后，选择生产环境并配置以下服务端环境变量，再执行部署：
 
+[![部署到 Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fzhuoruihu820-hue%2Ftea-hygiene-agent-demo&env=DASHSCOPE_API_KEY%2CDASHSCOPE_BASE_URL%2CDASHSCOPE_MODEL&envDefaults=%7B%22DASHSCOPE_BASE_URL%22%3A%22https%3A%2F%2Fdashscope.aliyuncs.com%2Fcompatible-mode%2Fv1%22%2C%22DASHSCOPE_MODEL%22%3A%22qwen3.8-max%22%7D&envDescription=%E8%AF%B7%E5%A1%AB%E5%86%99%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AE%BF%E9%97%AE%E5%AF%86%E9%92%A5%E3%80%82)
+
 - `DASHSCOPE_API_KEY`：通义千问访问密钥（敏感变量）
 - `DASHSCOPE_BASE_URL`：`https://dashscope.aliyuncs.com/compatible-mode/v1`
 - `DASHSCOPE_MODEL`：`qwen3.8-max`
