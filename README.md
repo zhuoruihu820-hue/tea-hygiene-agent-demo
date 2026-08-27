@@ -24,6 +24,16 @@ npm run dev
 
 生产环境中将 `DASHSCOPE_API_KEY` 配置为服务端密钥，禁止写入浏览器代码或提交到仓库。
 
+## Vercel 公网部署
+
+本项目已提供 `vercel.json`。在 Vercel 中导入此 GitHub 仓库后，选择生产环境并配置以下服务端环境变量，再执行部署：
+
+- `DASHSCOPE_API_KEY`：通义千问访问密钥（敏感变量）
+- `DASHSCOPE_BASE_URL`：`https://dashscope.aliyuncs.com/compatible-mode/v1`
+- `DASHSCOPE_MODEL`：`qwen3.8-max`
+
+部署成功后，Vercel 会生成可公开访问的 `*.vercel.app` 地址。请勿使用 `NEXT_PUBLIC_` 前缀配置访问密钥，否则密钥会进入浏览器端。
+
 ## 输入、规则与输出
 
 - 输入：门店、检查项和手机拍摄的巡检图片；首期卫生规则已内置。
