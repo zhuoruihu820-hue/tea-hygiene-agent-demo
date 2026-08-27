@@ -12,7 +12,9 @@ const RULES = [
 function outputText(body:{choices?:Array<{message?:{content?:string}}>}) { return body.choices?.[0]?.message?.content || ''; }
 
 export async function POST(request:Request) {
-  const {image,item,store}=await request.json();
+  const body=await request.json() as {image?:unknown;item?:unknown};
+  const image=typeof body.image==='string'?body.image:'';
+  const item=typeof body.item==='string'?body.item:'';
   const rule=RULES.find(x=>x.item===item);
   if(!image||!rule) return NextResponse.json({error:'缺少巡检图片或未找到已启用检查规则。'},{status:400});
   const key=process.env.DASHSCOPE_API_KEY;
@@ -21,7 +23,8 @@ export async function POST(request:Request) {
   try {
     const response=await fetch(`${process.env.DASHSCOPE_BASE_URL||'https://dashscope.aliyuncs.com/compatible-mode/v1'}/chat/completions`,{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({model:process.env.DASHSCOPE_MODEL||'qwen3.8-max',messages:[{role:'system',content:'仅输出严格 JSON。'},{role:'user',content:[{type:'text',text:prompt},{type:'image_url',image_url:{url:image}}]}],response_format:{type:'json_object'},enable_thinking:false,temperature:0,max_tokens:180})});
     if(!response.ok) return NextResponse.json({error:'真实 AI 服务调用失败，请检查模型配置和服务密钥。'},{status:502});
-    const finding=JSON.parse(outputText(await response.json()).replace(/^```json\s*|\s*```$/g,''));
+    const modelBody=await response.json() as {choices?:Array<{message?:{content?:string}}>};
+    const finding=JSON.parse(outputText(modelBody).replace(/^```json\s*|\s*```$/g,''));
     if(!['合规','违规','无法判断'].includes(finding.status)) throw new Error('invalid status');
     finding.item=rule.item;finding.ruleId=rule.id;finding.ruleText=rule.text;
     return NextResponse.json({finding});
