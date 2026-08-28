@@ -4,7 +4,9 @@
 
 本 Demo 演示店长选择门店并上传巡检照片、Agent 根据版本化规则输出检查结果、店长提交整改照片、督导复核并关闭任务的完整闭环。系统采用“证据不足即无法判断”的保守策略，不以大模型常识替代已启用规则。
 
-在线体验：[净巡 · 茶饮卫生巡检 Demo](https://tea-hygiene-agent-demo.austin0922.chatgpt.site)
+在线体验：[净巡 · 茶饮卫生巡检 Demo](https://tea-hygiene-agent-demo-public.vercel.app)
+
+公网部署通过 Vercel 持续集成：每次推送至 GitHub 的 `main` 分支，均会自动触发新的生产部署。
 
 ## 使用环境
 
